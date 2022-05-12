@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  has_many :recipes
+  has_many :portfolios
   
   has_secure_password
 
