@@ -37,3 +37,6 @@ group :test do
 end
 
 gem "active_model_serializers", "~> 0.10.12"
+
+# RestClient
+gem 'rest-client', '~> 2.1'
