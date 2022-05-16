@@ -4,5 +4,5 @@ class Portfolio < ApplicationRecord
     has_many :positions, dependent: :destroy
     has_many :stocks, through: :positions
 
-
+    validates :name, uniqueness: { scope: :client_id }
 end
