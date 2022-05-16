@@ -28,16 +28,16 @@ stock_amzn = Stock.create(symbol: "AMZN", name: "Amazon.com Inc", description: "
 stock_tsla = Stock.create(symbol: "TSLA", name: "Tesla Inc", description: "Tesla, Inc. is an American electric vehicle and clean energy company based in Palo Alto, California. Tesla's current products include electric cars, battery energy storage from home to grid-scale, solar panels and solar roof tiles, as well as other related products and services. In 2020, Tesla had the highest sales in the plug-in and battery electric passenger car segments, capturing 16% of the plug-in market (which includes plug-in hybrids) and 23% of the battery-electric (purely electric) market. Through its subsidiary Tesla Energy, the company develops and is a major installer of solar photovoltaic energy generation systems in the United States. Tesla Energy is also one of the largest global suppliers of battery energy storage systems, with 3 GWh of battery storage supplied in 2020.")
 
 #Starter Positions
-Position.create(portfolio_id: portfolio1[:id], stock_id: stock_aapl[:id])
-Position.create(portfolio_id: portfolio1[:id], stock_id: stock_amzn[:id])
-Position.create(portfolio_id: portfolio1[:id], stock_id: stock_tsla[:id])
-Position.create(portfolio_id: portfolio2[:id], stock_id: stock_aapl[:id])
-Position.create(portfolio_id: portfolio2[:id], stock_id: stock_tsla[:id])
-Position.create(portfolio_id: portfolio3[:id], stock_id: stock_aapl[:id])
-Position.create(portfolio_id: portfolio3[:id], stock_id: stock_amzn[:id])
-Position.create(portfolio_id: portfolio3[:id], stock_id: stock_tsla[:id])
-Position.create(portfolio_id: portfolio4[:id], stock_id: stock_aapl[:id])
-Position.create(portfolio_id: portfolio4[:id], stock_id: stock_tsla[:id])
+Position.create(portfolio_id: portfolio1[:id], stock_id: stock_aapl[:id], quantity: 100)
+Position.create(portfolio_id: portfolio1[:id], stock_id: stock_amzn[:id], quantity: 100)
+Position.create(portfolio_id: portfolio1[:id], stock_id: stock_tsla[:id], quantity: 100)
+Position.create(portfolio_id: portfolio2[:id], stock_id: stock_aapl[:id], quantity: 100)
+Position.create(portfolio_id: portfolio2[:id], stock_id: stock_tsla[:id], quantity: 100)
+Position.create(portfolio_id: portfolio3[:id], stock_id: stock_aapl[:id], quantity: 100)
+Position.create(portfolio_id: portfolio3[:id], stock_id: stock_amzn[:id], quantity: 100)
+Position.create(portfolio_id: portfolio3[:id], stock_id: stock_tsla[:id], quantity: 100)
+Position.create(portfolio_id: portfolio4[:id], stock_id: stock_aapl[:id], quantity: 100)
+Position.create(portfolio_id: portfolio4[:id], stock_id: stock_tsla[:id], quantity: 100)
 
 #Sample Tickers to start with...(facilitating price data API call through AlphaVantage)
 stocks = [stock_aapl, stock_amzn, stock_tsla]
