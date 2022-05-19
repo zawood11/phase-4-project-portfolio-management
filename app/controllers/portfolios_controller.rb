@@ -1,5 +1,4 @@
 class PortfoliosController < ApplicationController
-    wrap_parameters format: []
     before_action :find_portfolio, only: [:show, :update, :destroy]
 
     #GET "/portfolios"
