@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   # end
 
   resources :portfolios
-  resources :positions
+  resources :positions, except: [:index]
   resources :prices, only: [:index, :show, :create]
   resources :stocks, except: [:update]
   resources :users

@@ -1,4 +1,5 @@
 class PortfoliosController < ApplicationController
+    wrap_parameters format: []
     before_action :find_portfolio, only: [:show, :update, :destroy]
 
     #GET "/portfolios"
@@ -10,7 +11,7 @@ class PortfoliosController < ApplicationController
     #POST "/portfolios"
     def create
         #byebug
-        @portfolio = Portfolio.create(portfolio_params)
+        @portfolio = Portfolio.create!(portfolio_params)
         render json: @portfolio, status: :created
     end
 
@@ -21,7 +22,7 @@ class PortfoliosController < ApplicationController
 
     #PATCH "/portfolios"
     def update
-        @portfolio &.update!(portfolio_params)
+        @portfolio&.update!(portfolio_params)
         render json: @portfolio, status: :accepted
     end
 
