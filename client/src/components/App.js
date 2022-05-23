@@ -5,6 +5,7 @@ import Login from "../pages/Login";
 import PortfolioList from "../pages/PortfolioList";
 import NewPortfolio from "../pages/NewPortfolio";
 import StockList from "../pages/StockList";
+import StockCard from "../pages/StockCard";
 import NewStock from "../pages/NewStock";
 
 function App() {
@@ -31,6 +32,9 @@ function App() {
           </Route>
           <Route path="/stocks/new">
             <NewStock user={user} />
+          </Route>
+          <Route path="/stocks/:id">
+            <StockCard />
           </Route>
           <Route path="/stocks">
             <StockList />

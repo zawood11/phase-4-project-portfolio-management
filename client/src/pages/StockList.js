@@ -3,33 +3,23 @@ import ReactMarkdown from "react-markdown";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Box, Button } from "../styles";
+import StockCard from "./StockCard";
 
 function StockList() {
-  const [stocks, setstocks] = useState([]);
+  const [stocks, setStocks] = useState([]);
 
   useEffect(() => {
     fetch("/stocks")
       .then((r) => r.json())
-      .then(setstocks);
+      .then(setStocks);
   }, []);
 
   return (
     <Wrapper>
-        <Button>Add New Security</Button>
+        <Button as={Link} to="/stocks/new">Add New Security</Button>
       {stocks.length > 0 ? (
         stocks.map((stock) => (
-          <Stock key={stock.id}>
-            <Box>
-              <h2>{stock.symbol}: {stock.name}</h2>
-              <p>
-                <em>{stock.description}</em>
-              </p>
-              <p>
-              <Button as={Link} t>Show Price Data</Button>
-              </p>
-              {/* <ReactMarkdown>{recipe.instructions}</ReactMarkdown> */}
-            </Box>
-          </Stock>
+          <StockCard key={stock.id} stock={stock}></StockCard>
         ))
       ) : (
         <>
