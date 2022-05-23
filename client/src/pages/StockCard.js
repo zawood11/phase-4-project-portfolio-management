@@ -1,12 +1,19 @@
 import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Box, Button } from "../styles";
 
-function StockCard({stock}) {
-
+function StockCard() {
+  const [stock, setStock] = useState({})
   const [showPriceData, setShowPriceData] = useState(false);
+  const {id} = useParams();
+  
+  useEffect(() => {   
+        fetch(`/stocks/${id}`)
+        .then(res => res.json())
+        .then(stock => setStock(stock))
+    }, []);
 
   const togglePriceData = () => { 
     setShowPriceData(!showPriceData)
@@ -44,7 +51,7 @@ function StockCard({stock}) {
     <Wrapper>
           <Stock key={stock.id}>
             <Box>
-              <h2>{stock.symbol}: {stock.name}</h2>
+              <h2><Link to = {`/stocks/${stock.id}`}>{stock.symbol}</Link>: {stock.name}</h2>
               <p>
                 <em>{stock.description}</em>
               </p>
