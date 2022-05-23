@@ -3,6 +3,7 @@ import { Switch, Route } from "react-router-dom";
 import NavBar from "./NavBar";
 import Login from "../pages/Login";
 import PortfolioList from "../pages/PortfolioList";
+import PortfolioCard2 from "../pages/PortfolioCard2";
 import NewPortfolio from "../pages/NewPortfolio";
 import StockList from "../pages/StockList";
 import StockCard from "../pages/StockCard";
@@ -30,11 +31,14 @@ function App() {
           <Route path="/portfolios/new">
             <NewPortfolio user={user} />
           </Route>
+          <Route path="/portfolios/:id">
+            <PortfolioCard2 user={user} />
+          </Route>
           <Route path="/stocks/new">
             <NewStock user={user} />
           </Route>
           <Route path="/stocks/:id">
-            <StockCard />
+            <StockCard user={user}/>
           </Route>
           <Route path="/stocks">
             <StockList />

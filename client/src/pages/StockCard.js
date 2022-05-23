@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import ReactMarkdown from "react-markdown";
 import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Box, Button } from "../styles";
@@ -8,8 +7,8 @@ function StockCard() {
   const [stock, setStock] = useState({})
   const [showPriceData, setShowPriceData] = useState(false);
   const {id} = useParams();
-  
-  useEffect(() => {   
+
+  useEffect(() => {
         fetch(`/stocks/${id}`)
         .then(res => res.json())
         .then(stock => setStock(stock))

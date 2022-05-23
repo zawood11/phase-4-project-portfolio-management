@@ -19,13 +19,12 @@ function PortfolioList() {
         portfolios.map((portfolio) => (
           <Portfolio key={portfolio.id}>
             <Box>
-              <h2>{portfolio.name}</h2>
+              <h2><Link to = {`/portfolios/${portfolio.id}`}>{portfolio.name}</Link></h2>
               <p>
                 <em>Advisor: {portfolio.user.username}</em>
                 &nbsp;·&nbsp;
                 <cite>Client: {portfolio.client.username}</cite>
               </p>
-              {/* <ReactMarkdown>{recipe.instructions}</ReactMarkdown> */}
             </Box>
           </Portfolio>
         ))
