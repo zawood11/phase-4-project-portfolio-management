@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import NavBar from "./NavBar";
 import Login from "../pages/Login";
-import RecipeList from "../pages/RecipeList";
+import PortfolioList from "../pages/PortfolioList";
 import NewRecipe from "../pages/NewRecipe";
 
 function App() {
@@ -10,7 +10,7 @@ function App() {
 
   useEffect(() => {
     // auto-login
-    fetch("/api/me").then((r) => {
+    fetch("/me").then((r) => {
       if (r.ok) {
         r.json().then((user) => setUser(user));
       }
@@ -28,7 +28,7 @@ function App() {
             <NewRecipe user={user} />
           </Route>
           <Route path="/">
-            <RecipeList />
+            <PortfolioList />
           </Route>
         </Switch>
       </main>
