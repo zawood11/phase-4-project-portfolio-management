@@ -6,13 +6,14 @@ Rails.application.routes.draw do
     delete "/logout", to: "sessions#destroy"
   end
 
+  # all other routes will be load our React application
   resources :portfolios
   resources :positions, except: [:index]
   resources :prices, only: [:index, :show, :create]
   resources :stocks, except: [:update]
   resources :users
 
-  # all other routes will be load our React application
+ 
   # this route definition matches:
   # - *path: all paths not matched by one of the routes defined above
   # - constraints:

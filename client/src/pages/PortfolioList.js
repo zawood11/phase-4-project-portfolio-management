@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Box, Button } from "../styles";
 
-function PortfoliosList() {
+function PortfolioList() {
   const [portfolios, setPortfolios] = useState([]);
 
   useEffect(() => {
@@ -32,7 +32,7 @@ function PortfoliosList() {
       ) : (
         <>
           <h2>No Portfolios Found</h2>
-          <Button as={Link} to="/new">
+          <Button as={Link} to="/portfolios/new">
             Create a New Portfolio
           </Button>
         </>
@@ -50,4 +50,4 @@ const Portfolio = styled.article`
   margin-bottom: 24px;
 `;
 
-export default PortfoliosList;
+export default PortfolioList;

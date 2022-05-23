@@ -15,11 +15,14 @@ function NavBar({ user, setUser }) {
   return (
     <Wrapper>
       <Logo>
-        <Link to="/">Reciplease</Link>
+        <Link to="/">Bonsai Money Management</Link>
       </Logo>
       <Nav>
-        <Button as={Link} to="/new">
-          New Recipe
+        <Button as={Link} to="/portfolios/new">
+          New Portfolio
+        </Button>
+        <Button as={Link} to="/stocks">
+          Asset Database
         </Button>
         <Button variant="outline" onClick={handleLogoutClick}>
           Logout
