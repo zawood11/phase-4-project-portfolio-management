@@ -31,6 +31,7 @@ function PortfolioCard2() {
       }
     });
   }
+  
   return (
     <Wrapper>
           <PortfolioBlock2>

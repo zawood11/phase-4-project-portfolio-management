@@ -9,6 +9,8 @@ function StockCard() {
   const {id} = useParams();
   const history = useHistory();
 
+  const [errors, setErrors] = useState([]);
+  
   useEffect(() => {
         fetch(`/stocks/${id}`)
         .then(res => res.json())
@@ -29,6 +31,18 @@ function StockCard() {
     })
     .then(() => history.go(0))
  }
+
+ const deleteStock = () => {
+  fetch(`/stocks/${id}`, {
+    method: "DELETE",
+  }).then((r) => {
+    if (r.ok) {
+      history.push("/stocks");
+    } else {
+      r.json().then((err) => setErrors(err.errors))
+    }
+  });
+}
 
  const PriceTable = () => {
     return(
@@ -75,6 +89,7 @@ function StockCard() {
             <Button onClick={loadPriceData}>Update Price Data</Button>
             &nbsp;·&nbsp;
             <em>via AlphaVantage API. Last 100 days price data available.</em>
+            <p><Button onClick={deleteStock}>Delete Security</Button></p>
           </Stock>
     </Wrapper>
   );
