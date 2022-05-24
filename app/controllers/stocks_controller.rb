@@ -1,5 +1,5 @@
 class StocksController < ApplicationController
-    before_action :find_stock, only: [:show, :destroy]
+    before_action :find_stock, only: [:show, :update, :destroy]
 
     #GET "/stocks"
     def index
@@ -19,6 +19,19 @@ class StocksController < ApplicationController
         render json: @stock
     end
 
+    #PATCH "/stocks/:id"
+    def update
+        symbol = @stock.symbol
+        response = RestClient.get "https://www.alphavantage.co/query?function=OVERVIEW&symbol=#{symbol}&apikey=LOOC2YV5NOI7NALE"
+        
+        stock_hash = JSON.parse(response)
+        name = stock_hash["Name"] ? stock_hash["Name"] : "No information available"
+        description = stock_hash["Description"] ? stock_hash["Description"] : "No information available"
+
+        @stock.update!(stock_params)
+        render json: @stock, status: :accepted
+    end
+    
     #DELETE "/stocks/:id"
     def destroy
         @stock&.destroy

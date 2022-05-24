@@ -42,7 +42,7 @@ function PortfolioCard2() {
                             &nbsp;·&nbsp;
                             Latest Price: ${position.stock.prices[0].close}
                             &nbsp;·&nbsp;
-                            <em>{position.stock.prices[0].date}</em>
+                            <em>Updated: {position.stock.prices[0].date}</em>
                           </p>
                       </Box>
                   </PositionBox>

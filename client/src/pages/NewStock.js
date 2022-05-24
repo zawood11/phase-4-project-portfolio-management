@@ -5,10 +5,8 @@ import ReactMarkdown from "react-markdown";
 import { Button, Error, FormField, Input, Label, Textarea } from "../styles";
 
 function NewStock({ user }) {
-  const [name, setName] = useState("Stock Name");
+  const [symbol, setSymbol] = useState("Search for ticker here...");
   const [userId, setUserId] = useState("");
-  const [clientId, setClientId] = useState("");
-  
 
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -17,20 +15,18 @@ function NewStock({ user }) {
   function handleSubmit(e) {
     e.preventDefault();
     setIsLoading(true);
-    fetch("/portfolios", {
+    fetch("/stocks", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name,
-        userId,
-        userId,
+        symbol,
       }),
     }).then((r) => {
       setIsLoading(false);
       if (r.ok) {
-        history.push("/");
+        history.push("/stocks");
       } else {
         r.json().then((err) => setErrors(err.errors));
       }
@@ -43,35 +39,17 @@ function NewStock({ user }) {
         <h2>Create Portfolio</h2>
         <form onSubmit={handleSubmit}>
           <FormField>
-            <Label htmlFor="name">Title</Label>
+            <Label htmlFor="symbol">Title</Label>
             <Input
               type="text"
-              id="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </FormField>
-          <FormField>
-            <Label htmlFor="userId">User ID</Label>
-            <Input
-              type="number"
-              id="userId"
-              value={userId}
-              onChange={(e) => setUserId(e.target.value)}
-            />
-          </FormField>
-          <FormField>
-            <Label htmlFor="clientId">Client ID</Label>
-            <Input
-              type="number"
-              id="clientId"
-              value={clientId}
-              onChange={(e) => setClientId(e.target.value)}
+              id="symbol"
+              value={symbol}
+              onChange={(e) => setSymbol(e.target.value)}
             />
           </FormField>
           <FormField>
             <Button color="primary" type="submit">
-              {isLoading ? "Loading..." : "Submit Portfolio"}
+              {isLoading ? "Loading..." : "Add Stock"}
             </Button>
           </FormField>
           <FormField>
@@ -82,11 +60,9 @@ function NewStock({ user }) {
         </form>
       </WrapperChild>
       <WrapperChild>
-        <h1>{name}</h1>
+        <h1>{symbol}</h1>
         <p>
-          <em>User ID: {userId}</em>
-          &nbsp;·&nbsp;
-          <em>Client ID: {clientId}</em>
+          <cite>Added by: {user.username}</cite>
         </p>
       </WrapperChild>
     </Wrapper>
