@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   resources :stocks
   resources :users
 
+  post "/stocks/:id/prices", to: "stocks#create_prices"
+
  
   # this route definition matches:
   # - *path: all paths not matched by one of the routes defined above
