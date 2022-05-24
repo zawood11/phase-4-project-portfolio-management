@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Box, Button } from "../styles";
+import PositionCard from "./PositionCard";
 
 function PortfolioCard2() {
   const [portfolio, setPortfolio] = useState({})
@@ -10,13 +11,15 @@ function PortfolioCard2() {
   useEffect(() => {   
         fetch(`/portfolios/${id}`)
         .then(res => res.json())
-        .then(portfolio => setPortfolio(portfolio))
-        .then(console.log(portfolio))
-    }, []);
+        .then(pf => setPortfolio(pf))
+    }, [portfolio, id]);
+
+  
+    if (!portfolio.client || !portfolio.user) return <h1>Loading...</h1>
 
   return (
     <Wrapper>
-          <Portfolio>
+          <PortfolioBlock2>
           <Box>
               <h2><Link to = {`/portfolios/${portfolio.id}`}>{portfolio.name}</Link></h2>
               <p>
@@ -25,7 +28,7 @@ function PortfolioCard2() {
                 <em>Client: {portfolio.client.username}</em>
               </p>
             </Box>
-          </Portfolio>
+          </PortfolioBlock2>
     </Wrapper>
   );
 }
@@ -35,7 +38,7 @@ const Wrapper = styled.section`
   margin: 40px auto;
 `;
 
-const Portfolio = styled.article`
+const PortfolioBlock2 = styled.article`
   margin-bottom: 24px;
 `;
 

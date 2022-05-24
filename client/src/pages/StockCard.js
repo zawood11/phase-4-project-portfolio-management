@@ -12,7 +12,7 @@ function StockCard() {
         fetch(`/stocks/${id}`)
         .then(res => res.json())
         .then(stock => setStock(stock))
-    }, []);
+    }, [stock, id]);
 
   const togglePriceData = () => { 
     setShowPriceData(!showPriceData)

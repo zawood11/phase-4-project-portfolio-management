@@ -25,7 +25,6 @@ function StockList() {
                 <p>
                   <em>{stock.description}</em>
                 </p>
-                <p></p>
               </Box>
             </Stock>
         ))

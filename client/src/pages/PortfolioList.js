@@ -17,7 +17,7 @@ function PortfolioList() {
     <Wrapper>
       {portfolios.length > 0 ? (
         portfolios.map((portfolio) => (
-          <Portfolio key={portfolio.id}>
+          <PortfolioBlock1 key={portfolio.id}>
             <Box>
               <h2><Link to = {`/portfolios/${portfolio.id}`}>{portfolio.name}</Link></h2>
               <p>
@@ -26,7 +26,7 @@ function PortfolioList() {
                 <cite>Client: {portfolio.client.username}</cite>
               </p>
             </Box>
-          </Portfolio>
+          </PortfolioBlock1>
         ))
       ) : (
         <>
@@ -45,7 +45,7 @@ const Wrapper = styled.section`
   margin: 40px auto;
 `;
 
-const Portfolio = styled.article`
+const PortfolioBlock1 = styled.article`
   margin-bottom: 24px;
 `;
 

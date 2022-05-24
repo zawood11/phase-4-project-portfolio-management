@@ -17,8 +17,12 @@ class Api::UsersController < ApplicationController
 
     #GET "/users/:id"
     def show
-        render json: @user
-    end
+        if @user
+          render json: @user
+        else
+          render json: { error: "Not authorized" }, status: :unauthorized
+        end
+      end
 
     #PATCH "/users/:id"
     def update
@@ -35,7 +39,7 @@ class Api::UsersController < ApplicationController
     private
 
     def find_user
-        @user = User.find(params[:id])
+        @user = User.find_by(id: session[:user_id])
     end
 
     def user_params
