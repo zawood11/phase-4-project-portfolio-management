@@ -12,7 +12,7 @@ function PortfolioCard2() {
         fetch(`/portfolios/${id}`)
         .then(res => res.json())
         .then(pf => setPortfolio(pf))
-    }, [portfolio, id]);
+    }, []);
 
   
     if (!portfolio.client || !portfolio.user) return <h1>Loading...</h1>

@@ -16,7 +16,7 @@ class PortfoliosController < ApplicationController
 
     #GET "/portfolios/:id"
     def show
-        render json: @portfolio
+        render json: @portfolio, include: ['user', 'client', 'positions', 'positions.stock', 'positions.stock.prices']
     end
 
     #PATCH "/portfolios"
