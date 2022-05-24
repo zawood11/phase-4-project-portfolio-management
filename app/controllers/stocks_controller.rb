@@ -45,7 +45,7 @@ class StocksController < ApplicationController
     #POST "/stocks/:id/prices"
     def create_prices
         symbol = @stock.symbol
-        id = @stock.id
+        stock_id = @stock.id
 
         response = RestClient.get "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=#{symbol}&apikey=LOOC2YV5NOI7NALE"
 
@@ -63,6 +63,7 @@ class StocksController < ApplicationController
                 close: info["4. close"],
                 volume: info["5. volume"]
             )
+        end
         render json: @price, status: :created
     end
 

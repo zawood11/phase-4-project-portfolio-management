@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { Box, Button } from "../styles";
 
@@ -7,6 +7,7 @@ function StockCard() {
   const [stock, setStock] = useState({})
   const [showPriceData, setShowPriceData] = useState(false);
   const {id} = useParams();
+  const history = useHistory();
 
   useEffect(() => {
         fetch(`/stocks/${id}`)
@@ -16,6 +17,17 @@ function StockCard() {
 
   const togglePriceData = () => { 
     setShowPriceData(!showPriceData)
+ }
+
+ const loadPriceData = () => { 
+    fetch(`/stocks/${id}/prices`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: ""
+    })
+    .then(() => history.go(0))
  }
 
  const PriceTable = () => {
@@ -59,6 +71,10 @@ function StockCard() {
               </p>
                 {showPriceData ? <PriceTable /> : null}
             </Box>
+            <p></p>
+            <Button onClick={loadPriceData}>Update Price Data</Button>
+            &nbsp;·&nbsp;
+            <em>via AlphaVantage API. Last 100 days price data available.</em>
           </Stock>
     </Wrapper>
   );
