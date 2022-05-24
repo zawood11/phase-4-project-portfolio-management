@@ -10,7 +10,6 @@ function PositionCard({ position }) {
           <Position>
           <Box>
               <h2>{position.id}</h2>
-
             </Box>
           </Position>
     </Wrapper>

@@ -27,7 +27,7 @@ function PortfolioCard2() {
                 &nbsp;·&nbsp;
                 <em>Client: {portfolio.client.username}</em>
               </p>
-              <Button>Add Position</Button>
+              <Button as={Link} to="/positions/new">Add Position</Button>
               <h3>Positions</h3>
               {portfolio.positions.length > 0 ? (portfolio.positions.map(position => (
                   <PositionBox>

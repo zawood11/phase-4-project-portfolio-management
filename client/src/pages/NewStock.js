@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useHistory } from "react-router";
 import styled from "styled-components";
-import ReactMarkdown from "react-markdown";
 import { Button, Error, FormField, Input, Label, Textarea } from "../styles";
 
 function NewStock({ user }) {
@@ -43,7 +42,7 @@ function NewStock({ user }) {
         <h2>Create Portfolio</h2>
         <form onSubmit={handleSubmit}>
           <FormField>
-            <Label htmlFor="symbol">Title</Label>
+            <Label htmlFor="symbol">Symbol</Label>
             <Input
               type="text"
               id="symbol"

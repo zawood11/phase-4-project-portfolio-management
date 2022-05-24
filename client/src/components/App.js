@@ -8,6 +8,7 @@ import NewPortfolio from "../pages/NewPortfolio";
 import StockList from "../pages/StockList";
 import StockCard from "../pages/StockCard";
 import NewStock from "../pages/NewStock";
+import NewPosition from "../pages/NewPosition";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -33,6 +34,9 @@ function App() {
           </Route>
           <Route path="/portfolios/:id">
             <PortfolioCard2 user={user} />
+          </Route>
+          <Route path="/positions/new">
+            <NewPosition user={user} />
           </Route>
           <Route path="/stocks/new">
             <NewStock user={user} />
