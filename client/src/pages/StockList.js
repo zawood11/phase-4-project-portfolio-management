@@ -30,7 +30,7 @@ function StockList() {
         ))
       ) : (
         <>
-        <h2>No Assets Found</h2>
+        <h2>No Securities Found</h2>
         <Button as={Link} to="/new">Add Security</Button>
         </>
       )
