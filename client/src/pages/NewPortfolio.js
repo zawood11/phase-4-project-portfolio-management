@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import styled from "styled-components";
 import ReactMarkdown from "react-markdown";
-import { Button, Error, FormField, Input, Label, Textarea } from "../styles";
+import { Button, Error, FormField, Input, Label, Select } from "../styles";
 
 function NewPortfolio({ user }) {
-  const [name, setName] = useState("Portfolio Name");
+  const [name, setName] = useState("Enter Portfolio name here...");
+  const [users, setUsers] = useState([]);
   const [userId, setUserId] = useState("");
   const [clientId, setClientId] = useState("");
   
@@ -13,6 +14,12 @@ function NewPortfolio({ user }) {
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
+
+  useEffect(() => {
+    fetch(`/api/users`)
+    .then((r) => r.json())
+    .then(setUsers)
+}, []);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -23,9 +30,9 @@ function NewPortfolio({ user }) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name,
-        userId,
-        userId,
+        name: name,
+        user_id: userId,
+        client_id: clientId,
       }),
     }).then((r) => {
       setIsLoading(false);
@@ -43,7 +50,7 @@ function NewPortfolio({ user }) {
         <h2>Create Portfolio</h2>
         <form onSubmit={handleSubmit}>
           <FormField>
-            <Label htmlFor="name">Title</Label>
+            <Label htmlFor="name">Portfolio Name</Label>
             <Input
               type="text"
               id="name"
@@ -52,22 +59,26 @@ function NewPortfolio({ user }) {
             />
           </FormField>
           <FormField>
-            <Label htmlFor="userId">User ID</Label>
-            <Input
-              type="number"
+            <Label htmlFor="userId">Financial Advisor</Label>
+            <Select
+              type="text"
+              defaultValue={"default"}
               id="userId"
-              value={userId}
-              onChange={(e) => setUserId(e.target.value)}
-            />
+              onChange={(e) => setUserId(e.target.value)}>
+                <option value={"default"} disabled>Select a Financial Advisor</option>
+                {users.map((user, index) => <option key={index} value={user.id}>{user.username}</option>)}
+            </Select>
           </FormField>
           <FormField>
-            <Label htmlFor="clientId">Client ID</Label>
-            <Input
-              type="number"
+            <Label htmlFor="clientId">Client</Label>
+            <Select
+              type="text"
+              defaultValue={"default"}
               id="clientId"
-              value={clientId}
-              onChange={(e) => setClientId(e.target.value)}
-            />
+              onChange={(e) => setClientId(e.target.value)}>
+                <option value={"default"} disabled>Select a Client</option>
+                {users.map((user, index) => <option key={index} value={user.id}>{user.username}</option>)}
+            </Select>
           </FormField>
           <FormField>
             <Button color="primary" type="submit">
@@ -84,9 +95,7 @@ function NewPortfolio({ user }) {
       <WrapperChild>
         <h1>{name}</h1>
         <p>
-          <em>User ID: {userId}</em>
-          &nbsp;·&nbsp;
-          <em>Client ID: {clientId}</em>
+          <em>Created by: {user.username}</em>
         </p>
       </WrapperChild>
     </Wrapper>

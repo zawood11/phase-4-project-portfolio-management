@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useEffect, useImperativeHandle, useState } from "react";
+import { Link, useParams, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { Box, Button } from "../styles";
 import PositionCard from "./PositionCard";
@@ -7,6 +7,9 @@ import PositionCard from "./PositionCard";
 function PortfolioCard2() {
   const [portfolio, setPortfolio] = useState({})
   const {id} = useParams();
+
+  const [errors, setErrors] = useState([]);
+  const history = useHistory();
 
   useEffect(() => {   
         fetch(`/portfolios/${id}`)
@@ -16,7 +19,18 @@ function PortfolioCard2() {
 
   
     if (!portfolio.client || !portfolio.user) return <h1>Loading...</h1>
-
+  
+  const deletePortfolio = () => {
+    fetch(`/portfolios/${id}`, {
+      method: "DELETE",
+    }).then((r) => {
+      if (r.ok) {
+        history.push("/");
+      } else {
+        r.json().then((err) => setErrors(err.errors))
+      }
+    });
+  }
   return (
     <Wrapper>
           <PortfolioBlock2>
@@ -52,6 +66,8 @@ function PortfolioCard2() {
                   </>
               )}
             </Box>
+            <p></p>
+            <Button onClick={deletePortfolio} >Delete Portfolio</Button>
           </PortfolioBlock2>
     </Wrapper>
   );
