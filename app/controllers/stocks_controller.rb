@@ -28,10 +28,14 @@ class StocksController < ApplicationController
         name = stock_hash["Name"] ? stock_hash["Name"] : "No information available"
         description = stock_hash["Description"] ? stock_hash["Description"] : "No information available"
 
-        @stock.update!(stock_params)
+        @stock.update!(
+            symbol: symbol,
+            name: name,
+            description: description
+        )
         render json: @stock, status: :accepted
     end
-    
+
     #DELETE "/stocks/:id"
     def destroy
         @stock&.destroy

@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   resources :portfolios
   resources :positions, except: [:index]
   resources :prices, only: [:index, :show, :create]
-  resources :stocks, except: [:update]
+  resources :stocks
   resources :users
 
  

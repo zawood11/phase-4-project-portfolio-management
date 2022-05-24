@@ -26,7 +26,11 @@ function NewStock({ user }) {
     }).then((r) => {
       setIsLoading(false);
       if (r.ok) {
-        history.push("/stocks");
+        r.json().then(data => 
+            fetch(`/stocks/${data.id}`, {
+                method: "PATCH",
+            })
+            ).then(() => history.push("/stocks"));
       } else {
         r.json().then((err) => setErrors(err.errors));
       }
