@@ -1,4 +1,4 @@
-# Rails and React Heroku Demo App
+# Rails and React Bonsai Money Management Application
 
 This app uses a Rails API and React frontend that can be deployed to a single
 domain. For ease of deployment, both projects are contained in the same
