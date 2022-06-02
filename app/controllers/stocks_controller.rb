@@ -21,15 +21,13 @@ class StocksController < ApplicationController
 
     #PATCH "/stocks/:id"
     def update
-        symbol = @stock.symbol
-        response = RestClient.get "https://www.alphavantage.co/query?function=OVERVIEW&symbol=#{symbol}&apikey=LOOC2YV5NOI7NALE"
-        
-        stock_hash = JSON.parse(response)
-        name = stock_hash["Name"] ? stock_hash["Name"] : "No information available"
-        description = stock_hash["Description"] ? stock_hash["Description"] : "No information available"
+        update_stock_info
+
+        name = @stock_hash["Name"] ? @stock_hash["Name"] : "No information available"
+        description = @stock_hash["Description"] ? @stock_hash["Description"] : "No information available"
 
         @stock.update!(
-            symbol: symbol,
+            symbol: @symbol,
             name: name,
             description: description
         )
@@ -60,7 +58,7 @@ class StocksController < ApplicationController
                 volume: info["5. volume"]
             )
         end
-        
+
         render json: @price, status: :created
     end
 
@@ -72,6 +70,13 @@ class StocksController < ApplicationController
 
     def stock_params
         params.permit(:symbol, :name, :description)
+    end
+
+    def update_stock_info
+        @symbol = @stock.symbol
+        response = RestClient.get "https://www.alphavantage.co/query?function=OVERVIEW&symbol=#{@symbol}&apikey=LOOC2YV5NOI7NALE"
+        
+        @stock_hash = JSON.parse(response)
     end
 
     def stock_price_api
