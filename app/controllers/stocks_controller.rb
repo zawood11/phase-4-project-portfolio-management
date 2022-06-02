@@ -1,5 +1,5 @@
 class StocksController < ApplicationController
-    before_action :find_stock, only: [:show, :update, :destroy, :create_prices]
+    before_action :find_stock, only: [:show, :update, :destroy, :create_prices, :stock_price_api]
 
     #GET "/stocks"
     def index
@@ -44,18 +44,14 @@ class StocksController < ApplicationController
 
     #POST "/stocks/:id/prices"
     def create_prices
-        symbol = @stock.symbol
-        stock_id = @stock.id
 
-        response = RestClient.get "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=#{symbol}&apikey=LOOC2YV5NOI7NALE"
+        stock_price_api
 
-        stock_hash = JSON.parse(response)
-
-        stock_hash["Time Series (Daily)"].each do |date, info|
+        @stock_hash["Time Series (Daily)"].each do |date, info|
 
         @price = Price.create(
-                stock_id: stock_id,
-                symbol: symbol,
+                stock_id: @stock_id,
+                symbol: @symbol,
                 date: date,
                 open: info["1. open"],
                 high: info["2. high"],
@@ -64,6 +60,7 @@ class StocksController < ApplicationController
                 volume: info["5. volume"]
             )
         end
+        
         render json: @price, status: :created
     end
 
@@ -75,5 +72,14 @@ class StocksController < ApplicationController
 
     def stock_params
         params.permit(:symbol, :name, :description)
+    end
+
+    def stock_price_api
+        @symbol = @stock.symbol
+        @stock_id = @stock.id
+
+        response = RestClient.get "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=#{@symbol}&apikey=LOOC2YV5NOI7NALE"
+
+        @stock_hash = JSON.parse(response)
     end
 end
