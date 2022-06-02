@@ -47,7 +47,7 @@ function NewStock({ user }) {
               type="text"
               id="symbol"
               value={symbol}
-              onChange={(e) => setSymbol(e.target.value)}
+              onChange={(e) => setSymbol(e.target.value.toUpperCase())}
             />
           </FormField>
           <FormField>
