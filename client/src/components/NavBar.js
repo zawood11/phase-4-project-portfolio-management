@@ -14,6 +14,7 @@ function NavBar({ user, setUser }) {
 
   return (
     <Wrapper>
+      <CurrentUser>User: {user.username}</CurrentUser>
       <Logo>
         <Link to="/">Bonsai Money Management</Link>
       </Logo>
@@ -57,6 +58,11 @@ const Nav = styled.nav`
   gap: 4px;
   position: absolute;
   right: 8px;
+`;
+
+const CurrentUser = styled.h2`
+position: absolute;
+left: 8px;
 `;
 
 export default NavBar;
