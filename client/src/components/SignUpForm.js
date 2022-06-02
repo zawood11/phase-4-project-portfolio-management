@@ -1,17 +1,22 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router";
 import { Button, Error, Input, FormField, Label, Textarea } from "../styles";
 
 function SignUpForm({ onLogin }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
-  // const [imageUrl, setImageUrl] = useState("");
-  // const [bio, setBio] = useState("");
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const history = useHistory();
 
   function handleSubmit(e) {
     e.preventDefault();
+    if ([username, password, passwordConfirmation].some(val => val.trim() === "")) {
+      setErrors(["Please fill out all required fields."])
+    } if (password !== passwordConfirmation) {
+      setErrors(["Passwords do not match."])
+    } else {
     setErrors([]);
     setIsLoading(true);
     fetch("/api/signup", {
@@ -23,17 +28,31 @@ function SignUpForm({ onLogin }) {
         username,
         password,
         password_confirmation: passwordConfirmation,
-        // image_url: imageUrl,
-        // bio,
       })
     }).then((r) => {
       setIsLoading(false);
       if (r.ok) {
-        r.json().then((user) => onLogin(user));
+        r.json().then(
+          fetch("/api/login", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ username, password }),
+          }).then((r) => {
+            setIsLoading(false);
+            if (r.ok) {
+              r.json().then((user) => onLogin(user));
+            } else {
+              r.json().then((err) => setErrors(err.errors));
+            }
+          })
+        );
       } else {
         r.json().then((err) => setErrors(err.errors));
       }
     });
+  }
   }
 
   return (
@@ -71,11 +90,11 @@ function SignUpForm({ onLogin }) {
       <FormField>
         <Button type="submit">{isLoading ? "Loading..." : "Sign Up"}</Button>
       </FormField>
-      {/* <FormField>
+      <FormField>
         {errors.map((err) => (
           <Error key={err}>{err}</Error>
         ))}
-      </FormField> */}
+      </FormField>
     </form>
   );
 }
