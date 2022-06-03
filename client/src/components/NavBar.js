@@ -14,7 +14,7 @@ function NavBar({ user, setUser }) {
 
   return (
     <Wrapper>
-      <CurrentUser>User: {user.username}</CurrentUser>
+      <CurrentUser>User: {user.username} </CurrentUser>
       <Logo>
         <Link to="/">Bonsai Money Management</Link>
       </Logo>
