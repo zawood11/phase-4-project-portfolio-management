@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Box, Button } from "../styles";
 
-function PortfolioList() {
+function PortfolioList({ user }) {
   const [portfolios, setPortfolios] = useState([]);
 
   useEffect(() => {
@@ -16,7 +16,7 @@ function PortfolioList() {
   return (
     <Wrapper>
       {portfolios.length > 0 ? (
-        portfolios.map((portfolio) => (
+        portfolios.filter(portfolio => portfolio.user.username === user.username || portfolio.client.username === user.username).map((portfolio) => (
           <PortfolioBlock1 key={portfolio.id}>
             <Box>
               <h2><Link to = {`/portfolios/${portfolio.id}`}>{portfolio.name}</Link></h2>

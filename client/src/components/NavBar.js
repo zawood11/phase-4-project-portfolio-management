@@ -11,17 +11,25 @@ function NavBar({ user, setUser }) {
       }
     });
   }
+  
+  // const renderNewPFButton = (user) => {
+  //   if (user.role !== 0) { return (
+  //     <Button as={Link} to="/portfolios/new">
+  //       New Portfolio
+  //     </Button>)
+  //   } else {return null}
+  // }
 
   return (
     <Wrapper>
-      <CurrentUser>User: {user.username} </CurrentUser>
+      <CurrentUser>User: {user.username}</CurrentUser>
       <Logo>
         <Link to="/">Bonsai Money Management</Link>
       </Logo>
       <Nav>
         <Button as={Link} to="/portfolios/new">
           New Portfolio
-        </Button>
+        </Button>)
         <Button as={Link} to="/stocks">
           Asset Database
         </Button>

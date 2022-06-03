@@ -45,10 +45,10 @@ function App() {
             <StockCard user={user}/>
           </Route>
           <Route path="/stocks">
-            <StockList />
+            <StockList user={user}/>
           </Route>
           <Route path="/">
-            <PortfolioList />
+            <PortfolioList user={user}/>
           </Route>
         </Switch>
       </main>
